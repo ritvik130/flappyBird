@@ -34,6 +34,8 @@ function love.load()
         reizeable=true
     })
 
+    love.keyboard.keysPressed ={}
+
 end
 
 function love.resize(w,h)
@@ -49,8 +51,18 @@ function love.update(dt)
 end
 
 function love.keypessed(key)
+
+    love.keyboard.keysPressed[key]=true
     if key == 'escape' then
         love.event.quit()
+    end
+end
+
+function love.keyboard.wasPressed(key)
+    if love.keyboard.keysPressed(key) then
+        return true
+    else
+        return false
     end
 end
 
@@ -62,7 +74,7 @@ function love.draw()
     love.graphics.draw(ground,-groundScroll,VIRTUAL_HEIGHT-16)
 
     bird:render()
+    love.keyboard.keysPressed={}
 
     push:finish()
 end
-
