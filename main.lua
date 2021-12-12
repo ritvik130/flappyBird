@@ -42,15 +42,9 @@ function love.resize(w,h)
     push:resize(w,h)
 end
 
-function love.update(dt)
 
-    backgroundScroll=(backgroundScroll+BACKGROUND_SCROLL_SPEED*dt)% BACKGROUND_LOOPING_POINT
 
-    groundScroll=(groundScroll+GROUND_SCROLL_SPEED*dt)% VIRTUAL_WIDTH
-
-end
-
-function love.keypessed(key)
+function love.keyprssed(key)
 
     love.keyboard.keysPressed[key]=true
     if key == 'escape' then
@@ -59,11 +53,22 @@ function love.keypessed(key)
 end
 
 function love.keyboard.wasPressed(key)
-    if love.keyboard.keysPressed(key) then
+    if love.keyboard.keysPressed[key] then
         return true
     else
         return false
     end
+end
+
+function love.update(dt)
+
+    backgroundScroll=(backgroundScroll+BACKGROUND_SCROLL_SPEED*dt)% BACKGROUND_LOOPING_POINT
+
+    groundScroll=(groundScroll+GROUND_SCROLL_SPEED*dt)% VIRTUAL_WIDTH
+
+    bird:update(dt)
+    love.keyboard.keysPressed={}
+
 end
 
 function love.draw()
@@ -74,7 +79,7 @@ function love.draw()
     love.graphics.draw(ground,-groundScroll,VIRTUAL_HEIGHT-16)
 
     bird:render()
-    love.keyboard.keysPressed={}
+    
 
     push:finish()
 end
