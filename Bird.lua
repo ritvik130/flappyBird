@@ -19,7 +19,7 @@ function Bird:update(dt)
 
     if love.keyboard.wasPressed('space') then
 
-        self.dy= -5
+        self.dy= -3
     end
 
     self.y=self.y+self.dy
